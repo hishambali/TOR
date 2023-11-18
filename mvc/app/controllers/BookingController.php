@@ -21,10 +21,12 @@ class BookingController {
                         'date' => $date
                 );
         if ($this->model->addBooking($data)) {
-            echo "Booking added successfully!";
-            header(" refresh: 2; url =/Tourist-office-reservations/mvc/ ");
+            /* echo "Booking added successfully!";
+            header(" refresh: 2; url =/Tourist-office-reservations/mvc/ "); */
+            echo json_encode(array('status'=> 'success', 'data' =>$data) );
         } else {
-            echo "Failed to add Booking.";
+            echo json_encode(array('status'=> 'error', 'data' =>$data) );
+
         }
     }
     public function updataBooking(){
@@ -46,18 +48,32 @@ class BookingController {
                         "date" => $_POST['date']); 
                         
             if ($this->model->UpdataBooking($data,$_GET['id'])) {
-                echo "Booking upadtaed successfully!";
-                header("refresh: 1; url = /Tourist-office-reservations/mvc/");
+                /* echo "Booking upadtaed successfully!";
+                header("refresh: 1; url = /Tourist-office-reservations/mvc/"); */
+                echo json_encode(array('status'=> 'success', 'data' =>$data) );
+
             } 
             else {
-                echo "Failed to update Booking .";
+                /* echo "Failed to update Booking ."; */
+                echo json_encode(array('status'=> 'Failed', 'data' =>$data) );
+
             }
-        }
+        
         /* else {
             require "app/views/editbooking.php";
         }
 
-    } */
+    } */}
+    public function deleteBooking($id) {
+        if ($this->model->deleteBooking($_GET['id'])) {
+            echo "Booking deleted successfully!";
+            /* header("refresh: 1; url = /darrbeni/mvc/"); */
+        } 
+        else {
+            echo "Failed to delete user.";
+            }
+
+    }
     
 }
 

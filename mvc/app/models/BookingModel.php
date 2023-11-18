@@ -21,6 +21,10 @@ class BookingModel {
         $this->db->where('id',$id );
         return $this->db->update('booking', $data);
     }
+    public function deleteBooking($id){
+        $this->db->where('id', $id);
+        return $this->db->delete('booking');
+    }
 }
 
 
