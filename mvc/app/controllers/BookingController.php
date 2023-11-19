@@ -38,7 +38,6 @@ class BookingController {
             $hotel_id= $Booking['hotel_id'];
             $date = $Booking['date'];
         } */
-
         
         /* if (isset($_POST['updata'])) { */
         $data = Array ( 
@@ -65,7 +64,7 @@ class BookingController {
 
     } */}
     public function deleteBooking($id) {
-        if ($this->model->deleteBooking($_GET['id'])) {
+        if ($this->model->deleteBooking($id)) {
             echo "Booking deleted successfully!";
             /* header("refresh: 1; url = /darrbeni/mvc/"); */
         } 
