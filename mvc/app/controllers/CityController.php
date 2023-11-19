@@ -1,47 +1,47 @@
 <?php
 // app/controllers/UserController.php
+
+
 class CityController {
     private $model;
-
-    public function __construct($model) {
-        $this->model = $model;
+    public function __construct($db) {
+      
+        $this->model = new CityModel($db);
+    }
+   
+    public function index() {
+        $cities = $this->model->getCities();
+        include __DIR__.'/../views/cities_list.php';
     }
 
-    /*public function index() {
-        $cities = $this->model->getUsers();
-        
-        include 'app/views/user_list.php';
-    }*/
-
-    public function addUser() {
+    public function addCity() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $name=$_POST['name'];
-            $country=$_POST['country'];
+            $cityname = $_POST['name'];
+            $country = $_POST['country'];
             $data = [
-                'name' => $name ,
-                'country' => $country ,
+                'cityname' => $cityname,
+                'password' => $country,
             ];
 
-            if ($this->model->addUser($data)) {
-                echo json_encode(array('status'=>'ok',"data"=>$data));
+            if ($this->model->addCity($data)) {
+                header('Location:' . BASE_PATH);
+                echo 'done' ;
             } else {
-                echo "Failed to add user.";
+                echo "Failed to add city.";
             }
         }
     }
-
-    /*public function showUsers(){
-
-
-       $this->$model->getUsers();
-
-    }*/
-
-    /*public function updateUser($id){
-        $model->where(id)->delete();
+    public function deleteCity($id) {
+        if ($this->model->deleteCity($id)) {
+            echo "City deleted successfully!";
+            header('Location:' . BASE_PATH);
+        } else {
+            echo "Failed to delete city.";
+        }
     }
-    public function deleteUser($id){
-        $this->model->where("id=$id")->delete();
-    }*/
-}
+    public function searchCities($searchTerm) {
+        $cities = $this->model->searchCities($searchTerm);
+        include '../views/city_list.php';
+    }
+
 ?>
