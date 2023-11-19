@@ -1,11 +1,13 @@
+
 <?php
 class TicketModel {
+    
+
     private $db;
 
     public function __construct($db) {
         $this->db = $db;
     }
-
     public function getTicket() {
         return $this->db->get('tickets');
     }

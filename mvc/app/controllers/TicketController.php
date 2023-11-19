@@ -1,7 +1,8 @@
 <?php
-// app/controllers/TicketController.php
+
 class TicketController {
-    private $model;
+
+private $model;
 
     public function __construct($model) {
         $this->model = $model;
@@ -12,7 +13,6 @@ class TicketController {
         echo json_encode($d);
         
     }
-
     public function addTicket() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $company_id=$_POST['company_id'];
