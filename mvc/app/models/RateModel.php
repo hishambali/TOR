@@ -6,13 +6,22 @@ class RateModel {
     public function __construct($db) {
         $this->db = $db;
     }
-
-    public function getUsers() {
+    public function getRates() {
         return $this->db->get('rates');
     }
-
-    public function addUser($data) {
-        return $this->db->insert('rates', $data);
+    public function addRate($data) {
+        return $this->db->insert('cities', $data);
+    }
+    public function getRateById($id) {
+        return $this->db->where('id', $id)->getOne('rates');
+    }
+    public function deleteRate($id) {
+        $this->db->where('id', $id);
+        return $this->db->delete('rate');
+    }
+    public function searchRates($searchTerm) {
+       // $this->db->where('username', $searchTerm, 'LIKE');
+        return $this->db->get('rates');
     }
 }
 ?>
