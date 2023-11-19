@@ -2,51 +2,40 @@
 // app/controllers/UserController.php
 class RateController {
     private $model;
+  
 
-    public function __construct($model) {
-        $this->model = $model;
+    public function __construct($db) {
+      
+        $this->model = new RateModel($db);
     }
-
+   
     public function index() {
-        $cities = $this->model->getCities();
-        
-       
+        $rates = $this->model->getRates();
+        /* include __DIR__.'/../views/Rates_list.php'; */
     }
 
-    public function addCities() {
+    public function addRate() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $customer_id=$_POST['customer_id'];
-            $rate=$_POST['rate'];
-            $hotel_id=['hotel_id'];
-            $comment=['comment'];
+            $username = $_POST['username'];
+            $hotelname = $_POST['hotelname'];
+            $comment=$_POST['comment'];
             $data = [
-                'customer_id' => $customer_id ,
-                'rate' => $rate ,
-                'hotel_id'=> $hotel_id,
-                'comment'=> $comment
+                'cityname' => $cityname,
+                'password' => $country,
+                'comment' => $comment
             ];
 
-            if ($this->model->addCities($data)) {
-                echo json_encode(array('status'=>'ok',"data"=>$data));
-
+            if ($this->model->addRate($data)) {
+                header('Location:' . BASE_PATH);
+                echo 'done' ;
             } else {
-                echo "Failed to add user.";
+                echo "Failed to add Rate.";
             }
         }
     }
-
-    /*public function showUsers(){
-
-
-       $this->$model->getUsers();
-
-    }*/
-
-    /*public function updateUser($id){
-        $model->where(id)->delete();
-    }*/
-    public function deleteUser($id){
-        $this->model->where('id',$id)->delete();
+    public function searchRates($searchTerm) {
+        $rates = $this->model->searchRates($searchTerm);
+        /* include '../views/rate_list.php'; */
     }
-}
+
 ?>
