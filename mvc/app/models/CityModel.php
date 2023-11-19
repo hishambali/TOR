@@ -1,5 +1,5 @@
 <?php 
-class TripModel {
+class CityModel {
     
 }
 
