@@ -14,6 +14,14 @@ class AdminModel {
         }
         
     }
+    public function getAdminsByemail ($email = null){
+        if (isset($email)) {
+            $this->db->where("email",$email);
+            return $this->db->get('admin');
+        }
+        
+        
+    }
     public function addAdmin($data){
         return $this->db->insert('admin', $data);
 
