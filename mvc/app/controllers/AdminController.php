@@ -1,7 +1,4 @@
 <?php
-
-
-
 class AdminController {
     private $model;
 

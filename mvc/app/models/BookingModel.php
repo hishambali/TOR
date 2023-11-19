@@ -1,7 +1,6 @@
 <?php 
 class BookingModel {
     private $db;
-    
     public function __construct($db) {
         $this->db = $db;
     }
@@ -20,10 +19,6 @@ class BookingModel {
     public function UpdataBooking($data,$id){
         $this->db->where('id',$id );
         return $this->db->update('booking', $data);
-    }
-    public function deleteBooking($id){
-        $this->db->where('id', $id);
-        return $this->db->delete('booking');
     }
 }
 
