@@ -7,7 +7,8 @@ class BookingController {
     }
     public function index() {
         $Bookings = $this->model->getBooking();
-        include 'app/views/bookingtab.php';
+        echo json_encode($Bookings);
+        /* include 'app/views/bookingtab.php'; */
     }
     public function addBooking() {
         $customer_id = $_POST['customer_id'];

@@ -1,4 +1,5 @@
 <?php
+
 class AdminController {
     private $model;
 
@@ -10,10 +11,12 @@ class AdminController {
         
         $this->model->getAdminsByemail($email);
         if ($this->model->getAdminsByemail($email)) {
-            echo "hello ";
+            
             $_SESSION['email']=$email;
-            echo $_SESSION['email'];  
+            var_dump ($_SESSION['email']); 
             header("location:/mvc/");
+            
+            
         }
         else {
             echo "plz enter valid information";
