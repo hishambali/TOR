@@ -14,10 +14,6 @@ SPL_autoload_register(function($class){
         {
         require __DIR__ . '/lib/DB/'.$class.'.php';
         }
-    if(file_exists(__DIR__ . '/app/models/'.$class.'.php'))
-        {
-        require __DIR__ . '/app/models/'.$class.'.php';
-        }
 });
 
 $config = require 'config/config.php';
@@ -28,22 +24,15 @@ $db = new MysqliDb(
     $config['db_name']
 );
 
-$model1 = new AdminModel($db);
-$controller1 = new AdminController($model1);
-$model2 = new BookingModel($db);
-$controller2 = new BookingController($model2);
-$model3 = new CityModel($db);
-$controller3 = new CityController($model3);
-$model4 = new CompanyController($db);
-$controller4 = new CompanyController($model4);
-$model5 = new CustomerModel($db);
-$controller5 = new CustomerController($model5);
-$model6 = new HotelModel($db);
-$controller6 = new HotelController($model6);
-$model7= new RateModel($db);
-$controller7= new RateController($model7);
-$model8 = new TicketModel($db);
-$controller8 = new TicketController($model8);
+$controller1 = new AdminController($db);
+$controller2 = new BookingController($db);
+$controller3 = new CityController($db);
+$controller4 = new CompanyController($db);
+$controller5 = new CustomerController($db);
+$controller6 = new HotelController($db);
+$controller7= new RateController($db);
+$controller8 = new TicketController($db);
+
 $request = $_SERVER['REQUEST_URI']; 
 define('BASE_PATH', '/mvc/');
        /*  var_dump($request); */
@@ -134,10 +123,6 @@ SPL_autoload_register(function($class){
         {
         require __DIR__ . '/lib/DB/'.$class.'.php';
         }
-    if(file_exists(__DIR__ . '/app/models/'.$class.'.php'))
-        {
-        require __DIR__ . '/app/models/'.$class.'.php';
-        }
 });
 
 $config = require 'config/config.php';
@@ -148,10 +133,8 @@ $db = new MysqliDb(
     $config['db_name']
 );
 
-$model1 = new AdminModel($db);
-$controller1 = new AdminController($model1);
+$controller1 = new AdminController($db);
 $controller1->login($_POST["email"],$_POST['password']);
-
 
 }
 

@@ -1,9 +1,15 @@
 <?php
+require_once __DIR__.'/../models/BookingModel.php';
+require_once __DIR__.'/../models/TicketModel.php';
+require_once __DIR__.'/../models/HotelModel.php';
+require_once __DIR__.'/../models/CustomerModel.php';
+
 class BookingController {
+
     private $model; 
     
-    public function __construct($model) {
-        $this->model = $model;
+    public function __construct($db) {
+        $this->model = new BookingModel($db);
     }
     public function index() {
         $Bookings = $this->model->getBooking();
@@ -11,6 +17,7 @@ class BookingController {
         /* include 'app/views/bookingtab.php'; */
     }
     public function addBooking() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $customer_id = $_POST['customer_id'];
         $ticket_id = $_POST['ticket_id'];
         $hotel_id= $_POST['hotel_id'];
@@ -30,6 +37,7 @@ class BookingController {
 
         }
     }
+}
     public function updataBooking(){
         
         /* $Bookings = $this->model->getBooking($_GET['id']);

@@ -1,9 +1,11 @@
 <?php
+require_once __DIR__.'/../models/CompanyModel.php';
+
 class CompanyController {
     private $model;
 
-    public function __construct($model) {
-        $this->model = $model;
+    public function __construct($db) {
+        $this->model = new CompanyModel($db);
     }
 
     public function index() {

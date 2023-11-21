@@ -1,10 +1,11 @@
 <?php
+require_once __DIR__.'/../models/AdminModel.php';
 
 class AdminController {
     private $model;
 
-    public function __construct($model) {
-        $this->model = $model;
+    public function __construct($db) {
+        $this->model = new AdminModel($db);
     }
     
     public function login($email, $password) {

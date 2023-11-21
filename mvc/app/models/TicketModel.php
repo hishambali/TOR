@@ -19,5 +19,8 @@ class TicketModel {
         $this->db->where('id', $id);
         return $this->db->delete('tickets');
     }
+    public function getTicketById($id) {
+        return $this->db->where('id', $id)->getOne('tickets');
+    }
 }
 ?>

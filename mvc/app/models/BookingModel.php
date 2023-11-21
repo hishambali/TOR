@@ -20,6 +20,7 @@ class BookingModel {
         $this->db->where('id',$id );
         return $this->db->update('booking', $data);
     }
+    
 }
 
 
