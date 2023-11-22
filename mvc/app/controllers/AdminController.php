@@ -7,17 +7,7 @@ class AdminController {
         $this->model = $model;
     }
     
-    function chechpassword($password){
-
-        if(strlen($password)>=6)
-        {
-          echo "the password is clear"."<br>";
-        }
-        else
-        {
-          echo "the password is not correct"."<br>";
-        }
-      }
+   
 
     public function login($email, $password) {
         if (filter_var($email, FILTER_VALIDATE_EMAIL)!=false) {
@@ -45,6 +35,18 @@ class AdminController {
         echo json_encode(array('status'=> 'success', 'data' =>$admins) );
     }
     public function addAdmin() {
+         function chechpassword($password){
+
+            if(strlen($password)>=6)
+            {
+              echo "the password is clear"."<br>";
+            }
+            else
+            {
+              echo "the password is not correct"."<br>";
+            }
+          }
+          
         $email = $_POST['email'];
         $password = $_POST['password'];
         $adminname= $_POST['name'];
