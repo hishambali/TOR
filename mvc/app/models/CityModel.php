@@ -1,6 +1,7 @@
 <?php
 
 class CityModel {
+
     private $db;
 
     public function __construct($db) {
@@ -13,6 +14,9 @@ class CityModel {
 
     public function addCity($data) {
         return $this->db->insert('cities', $data);
+    }
+    public function getCityById($id) {
+        return $this->db->where('id', $id)->getOne('cities');
     }
 }
 ?>
