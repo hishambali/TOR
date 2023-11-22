@@ -60,6 +60,10 @@ switch ($request) {
                 // var_dump($_SERVER);
                 $controller3->addCity();
                 break;
+            case BASE_PATH . 'Company':
+                // var_dump($_SERVER);
+                $controller4->index();
+                break;
             case BASE_PATH . 'Company/add':
                 // var_dump($_SERVER);
                 $controller4->addCompany();
@@ -134,7 +138,7 @@ $db = new MysqliDb(
 );
 
 $controller1 = new AdminController($db);
-$controller1->login($_POST["email"],$_POST['password']);
+$x=$controller1->login($_POST["email"],$_POST['password']);
 
 }
 

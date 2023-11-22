@@ -49,12 +49,15 @@ class HotelController {
     }
 
     public function deleteHotel($id) {
-        if ($this->model->deleteHotel($id)) {
-            // echo json_encode($data);
-            echo json_encode(array('status'=>'ok','data'=>'hotel deleted successfully!'));
-        } else {
-            // echo json_encode($data);
-            echo json_encode(array('status'=>'ok','data'=>'Failed to delete hotel.'));
+        if ($this->model->getHotelById($id))
+            {
+                if ($this->model->deleteHotel($id)) {
+                echo json_encode(array('status'=>'ok','data'=>"Hotel deleted successfully!"));
+            } else {
+                echo json_encode(array('status'=>'ok','data'=>'Failed to delete Hotel'));
+            }
+        }else {
+            echo json_encode(array('status'=>'ok','data'=>'Hotel not found'));
         }
     }
 
