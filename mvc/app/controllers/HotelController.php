@@ -1,10 +1,15 @@
 <?php
+require_once __DIR__.'/../models/HotelModel.php';
+require_once __DIR__.'/../models/CityModel.php';
+
 class HotelController {
 
     private $model;
+    private $city;
 
-    public function __construct($model) {
-        $this->model = $model;
+    public function __construct($db) {
+        $this->model = new HotelModel($db) ;
+        $this->city = new CityModel($db);
     }
 
     public function addHotel() {
@@ -17,13 +22,17 @@ class HotelController {
                 'phone' => $phone,
                 'city_id' => $city_id
             ];
-
-            if ($this->model->addHotel($data)) {
-                // echo json_encode($data);
-                echo json_encode(array('status'=>'ok','data'=>$data));
-            } else {
-                // echo json_encode($data);
-                echo json_encode(array('status'=>'ok','data'=>'sorry'));
+            if ($this->data_full($data)){
+                if($this->data_validation($data))
+                    {
+                        if ($this->model->addHotel($data)) {
+                            // echo json_encode($data);
+                            echo json_encode(array('status'=>'ok','data'=>$data));
+                        } else {
+                            // echo json_encode($data);
+                            echo json_encode(array('status'=>'ok','data'=>'sorry'));
+                        }
+                    }
             }
         }
     }
@@ -40,12 +49,15 @@ class HotelController {
     }
 
     public function deleteHotel($id) {
-        if ($this->model->deleteHotel($id)) {
-            // echo json_encode($data);
-            echo json_encode(array('status'=>'ok','data'=>'hotel deleted successfully!'));
-        } else {
-            // echo json_encode($data);
-            echo json_encode(array('status'=>'ok','data'=>'Failed to delete hotel.'));
+        if ($this->model->getHotelById($id))
+            {
+                if ($this->model->deleteHotel($id)) {
+                echo json_encode(array('status'=>'ok','data'=>"Hotel deleted successfully!"));
+            } else {
+                echo json_encode(array('status'=>'ok','data'=>'Failed to delete Hotel'));
+            }
+        }else {
+            echo json_encode(array('status'=>'ok','data'=>'Hotel not found'));
         }
     }
 
@@ -68,6 +80,61 @@ class HotelController {
             }
         } else {
             $hotel = $this->model->getHotelById($id);
+        }
+    }
+
+    public function data_full($data=array()) {
+        // var_dump($data);
+         $res = true;
+         foreach($data as $key => $value)
+         {
+             if (empty($value))
+             {
+                 echo json_encode(array('status'=>'ok','data'=> "$key is empty please enter data "));
+                 $res = false ;
+             } 
+         }
+         return $res ;
+    }
+
+    public function data_validation ($data)
+    {
+            if ($this->valid_city_id($data['city_id'])
+                && $this->valid_name($data['name'])
+                && $this->valid_phone($data['phone']))
+            {
+                return True;
+            }else{
+                return False;}
+    }
+
+    public function valid_phone($phone){
+        $structure = "/^([0-9]+)$/";
+        if (preg_match($structure,$phone)){
+            return True;
+        }
+        else {
+            echo json_encode(array('status'=>'ok','data'=>'invalid phone '));
+            return False ;
+        }
+    }
+    public function valid_name($name){
+        $structure = "/^([A-Za-z0-9]+)$/";
+        if (preg_match($structure,$name)){
+            return True;
+        }
+        else {
+            echo json_encode(array('status'=>'ok','data'=>'invalid name '));
+            return False ;
+        }
+    }
+    public function valid_city_id($city_id){
+        if ($this->city->getCityById($city_id))
+        {
+            return True;
+        }else {
+            echo json_encode(array('status'=>'ok','data'=>'this city not found'));
+            return False ;
         }
     }
 

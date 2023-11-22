@@ -18,5 +18,8 @@ class CompanyModel {
         $this->db->where('id', $id);
         return $this->db->delete('companies');
     }
+    public function getCompanyById($id) {
+        return $this->db->where('id', $id)->getOne('companies');
+    }
 }
 ?>

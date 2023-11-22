@@ -1,10 +1,11 @@
 <?php
+require_once __DIR__.'/../models/CityModel.php';
 
 class CityController {
     private $model;
 
-    public function __construct($model) {
-        $this->model = $model;
+    public function __construct($db) {
+        $this->model = new CityModel($db);
     }
 
     /*public function index() {
@@ -21,12 +22,50 @@ class CityController {
                 'name' => $name ,
                 'country' => $country ,
             ];
-
-            if ($this->model->addCity($data)) {
-                echo json_encode(array('status'=>'ok',"data"=>$data));
-            } else {
-                echo "Failed to add city.";
+            if ($this->data_full($data)){
+                if($this->data_validation($data)){
+                if ($this->model->addCity($data)) {
+                    echo json_encode(array('status'=>'ok',"data"=>$data));
+                     } else {
+                        echo json_encode(array('status'=>'ok',"data"=>"Failed to add city."));
+                    }
+                }
             }
+        }
+    }
+    public function data_full($data=array()) {
+        // var_dump($data);
+        $res = true;
+        foreach($data as $key => $value)
+        {
+            if (empty($value))
+            {
+                echo json_encode(array('status'=>'ok','data'=> "$key is empty please enter data"));
+                $res = false ;
+            } 
+        }
+        return $res ;
+    }
+    public function data_validation ($data)
+    {
+            if ($this->valid($data['name'],'name')
+                && $this->valid($data['country'],'contry')
+                )
+                {
+                    return True;
+                }
+            else{
+                return False;
+                }
+    }
+    public function valid($name,$key){
+        $structure = "/^([A-Za-z]+)$/";
+        if (preg_match($structure,$name)){
+            return True;
+        }
+        else {
+            echo json_encode(array('status'=>'ok','data'=>"invalid $key"));
+            return False ;
         }
     }
 
