@@ -26,11 +26,11 @@ class AdminModel {
         return $this->db->insert('admin', $data);
 
     }
-    public function UpdataUser($data,$id){
+    public function UpdataAdmin($data,$id){
         $this->db->where('id',$id );
         return $this->db->update('admin', $data);
     }
-    public function deleteuser($id){
+    public function deleteAdmin($id){
         $this->db->where('id', $id);
         return $this->db->delete('admin');
         
